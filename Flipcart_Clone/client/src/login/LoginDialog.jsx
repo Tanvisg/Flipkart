@@ -1,4 +1,7 @@
-import { Dialog, Box, TextField, Typography, Button, styled } from '@mui/material'
+import { Dialog, Box, TextField, Typography, Button, styled } from '@mui/material';
+
+import { authenticateSignup } from '../service/api';
+
 import { useState } from 'react';
 
 const Component = styled(Box)`
@@ -96,8 +99,11 @@ const LoginDialog = ({open, setOpen}) =>{
     }
 
     const onInputChange = (e) => {
-     setSignUp({...signUp, [e.target.name]: e.target.value});
-     console.log(signUp);   
+     setSignUp({...signUp, [e.target.name]: e.target.value});  
+    }
+
+    const signupUser = async () => {
+        let response = await authenticateSignup(signUp);
     }
 
     return(
@@ -127,7 +133,7 @@ const LoginDialog = ({open, setOpen}) =>{
                             <TextField variant="standard" label="Enter Email" onChange={(e) => onInputChange(e)} name='email' style={{paddingTop: 5, paddingLeft: 0}}/>
                             <TextField variant="standard" label="Enter Password" onChange={(e) => onInputChange(e)} name='password' style={{paddingTop: 5, paddingLeft: 0}}/>
                             <TextField variant="standard" label="Enter Mobile Number" onChange={(e) => onInputChange(e)} name='phone' style={{paddingTop: 5, paddingLeft: 0}}/>
-                            <LoginButton>Continue</LoginButton>
+                            <LoginButton onClick={() => signupUser()}>Continue</LoginButton>
                         </Wrapper>
                     }
                 </Box>
