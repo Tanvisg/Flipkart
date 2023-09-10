@@ -37,7 +37,7 @@ const LoginButton = styled(Button)`
     color: #fff;
     height: 48px;
     border-radius: 2px;
-
+    hover: none
 `;
 
 const RequestOTP = styled(Button)`
@@ -104,6 +104,8 @@ const LoginDialog = ({open, setOpen}) =>{
 
     const signupUser = async () => {
         let response = await authenticateSignup(signUp);
+        if(!response) return;
+        handleClose()
     }
 
     return(
