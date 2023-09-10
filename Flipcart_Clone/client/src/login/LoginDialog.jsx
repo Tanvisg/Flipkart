@@ -2,7 +2,8 @@ import { Dialog, Box, TextField, Typography, Button, styled } from '@mui/materia
 
 import { authenticateSignup } from '../service/api';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DataContext } from '../context/DataProvider';
 
 const Component = styled(Box)`
     height: 82vh;
@@ -89,6 +90,8 @@ const LoginDialog = ({open, setOpen}) =>{
     const [account, toggleAccount] = useState(accountInitialValues.login);
     const [signUp, setSignUp] = useState(signUpInitialValues);
 
+    const { setAccount } = useContext(DataContext)
+
     const handleClose = () =>{
         setOpen(false);
         toggleAccount(accountInitialValues.login);
@@ -105,7 +108,8 @@ const LoginDialog = ({open, setOpen}) =>{
     const signupUser = async () => {
         let response = await authenticateSignup(signUp);
         if(!response) return;
-        handleClose()
+        handleClose();
+        setAccount(signUp.firstName)
     }
 
     return(
